@@ -1,0 +1,164 @@
+<div class="container-fluid">
+    <div class="box">
+        <div class="box-header">
+            <div class="header-btn">
+                <button type="button" class="btn btn-primary btn-custom" data-bs-toggle="modal"
+                    data-bs-target="#addProductModal">
+                    Add Order
+                </button>
+            </div>
+            <!-- Add  Product Type Modal -->
+            <div class="modal fade" id="addProductModal" tabindex="-1" aria-labelledby="addProductLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 id="addProductLabel">Add Order </h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form [formGroup]="addOrderForm" (ngSubmit)="onSubmit()">
+                                <div class="row form-container">
+                                    <div class="col-lg-6 form-group">
+                                        <label for="ProductId">Product ID</label>
+                                        <input type="text" id="ProductId" formControlName="ProductId" class="form-control">
+                                    </div>
+                                    <div class="col-lg-6 form-group">
+                                        <label for="ProductName">Product Name</label>
+                                        <input type="text" id="ProductName" formControlName="ProductName" class="form-control">
+                                    </div>
+                                    <div class="col-lg-6 form-group">
+                                        <label for="qty">Qty</label>
+                                        <input type="text" id="qty" formControlName="qty" class="form-control">
+                                    </div>
+                                    <div class="col-lg-6 form-group">
+                                        <label for="price">Price</label>
+                                        <input type="text" id="price" formControlName="price" class="form-control">
+                                    </div>
+                                    <div class="col-lg-6 form-group">
+                                        <label for="discountedPrice">Discounted Price</label>
+                                        <input type="text" id="discountedPrice" formControlName="discountedPrice" class="form-control">
+                                    </div>
+                                    <div class="col-lg-6 form-group">
+                                        <label for="stock">Stock</label>
+                                        <input type="text" id="stock" formControlName="stock" class="form-control">
+                                    </div>
+                                    <div class="col-lg-6 form-group">
+                                        <label for="customerName">Customer Name</label>
+                                        <input type="text" id="customerName" formControlName="name" class="form-control">
+                                    </div>
+                                    <div class="col-lg-6 form-group">
+                                        <label for="phone">Phone</label>
+                                        <input type="text" id="phone" formControlName="mobile" class="form-control">
+                                    </div>
+                                    <div class="col-lg-6 form-group">
+                                        <label for="email">Email</label>
+                                        <input type="text" id="email" formControlName="email" class="form-control">
+                                    </div>
+                                    <div class="col-lg-6 form-group">
+                                        <label for="state">State</label>
+                                        <input type="text" id="state" formControlName="state" class="form-control">
+                                    </div>
+                                    <div class="col-lg-6 form-group">
+                                        <label for="district">District</label>
+                                        <input type="text" id="district" formControlName="district" class="form-control">
+                                    </div>
+                                    <div class="col-lg-6 form-group">
+                                        <label for="address">Address</label>
+                                        <input type="text" id="address" formControlName="address" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-primary">Save changes</button>
+                                </div>
+                            </form>
+                            
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Display order Table -->
+
+        <div class="container">
+            <h2 class="order-header">Orders</h2>
+            <div *ngFor="let order of orders; let i = index" class="table-details">
+                <div class="dateField">
+                    <p class="item-index">{{i + 1}}</p>
+                    <p class="order-date"><strong>Date:</strong> {{order.date}}</p>
+                </div>
+               
+                <div class="order-details ">
+                    <div class="customerdetails">
+                        <p><strong>Invoice Number: {{ order.invoiceNumber }} </strong></p>
+                        <p><strong>Name:</strong> {{ order.name }}</p>
+                        <p><strong>Email:</strong> {{ order.email }}</p>
+                        <p><strong>Mobile:</strong> {{ order.mobile }}</p>
+                        <p><strong>Address:</strong> {{ order.address }}</p>
+                        <p><strong>State:</strong> {{order.state}}</p>
+                        <p class="status" [ngStyle]="{
+      'color': order.status === 'completed' ? 'green' : 
+               (order.status === 'cancelled' ? 'red' : 
+               (order.status === 'pending' ? '#cfb201' : 'black'))
+   }">
+                            <strong>Status:</strong> {{ order.status }}
+                        </p>
+
+                    </div>
+                </div>
+
+                <table class="table table-bordered order-table">
+                    <thead>
+                        <tr>
+                            <th>Product Name</th>
+                            <th>Qty</th>
+                            <th>Price</th>
+                            <th>Discounted Price</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of order.orderItems">
+                            <td>{{ item.productName }}</td>
+                            <td>{{ item.qty }}</td>
+                            <td>{{ item.price | currency:'INR' }}</td>
+
+                            <td>{{ item.discountedPrice | currency:'INR' }}</td>
+                            <td>{{ item.totalPrice | currency:'INR' }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="action-buttons">
+                 
+
+                </div>
+                <div class="overall">
+                    <div class="button-group">
+                        <button class="all-btn btn-complete" (click)="updateStatus(order, 'completed')">
+                           <span class="typcn--tick"></span>
+                            Completed
+                        </button>
+                        <button class="all-btn btn-Cancelled" (click)="updateStatus(order, 'cancelled')">
+                            <!-- &#10006; Cross mark -->
+                            <span class="charm--cross"></span>
+                            Cancelled
+                        </button>
+                        <button class="all-btn btn-Pending" (click)="updateStatus(order, 'pending')">
+                            <!-- &#10006; Cross mark -->
+                            <span class="carbon--warning"></span>
+                            Pending
+                        </button>
+                    </div>
+                    <p class="total-amount">
+                        <strong>Total Amount:</strong> {{ order.overallAmount | currency:'INR' }}
+                    </p>
+                </div>
+                
+            </div>
+
+
+        </div>
+    </div>
+</div>

@@ -1,0 +1,258 @@
+.container-fluid {
+    height: 100px;
+}
+
+.box {
+    margin-top: 10px;
+
+    /* background-color: aqua; */
+    height: 500px;
+    z-index: 5;
+}
+
+.header-btn {
+    /* margin-top: 100px;
+    padding: 40px; */
+    display: flex;
+    justify-content: flex-end;
+
+}
+
+.btn-custom {
+    background-color: transparent;
+    border: 2px solid;
+    width: 180px;
+    height: 40px;
+    border-image: linear-gradient(45deg, red, #00f) 1;
+    color: #a81cff;
+    /* padding: 10px 20px; */
+    font-size: 16px;
+    font-weight: 500;
+
+}
+.header-modal button{
+    float: right;
+    padding: 10px;
+}
+.header-modal h5{
+    float: left;
+    padding: 7px;
+}
+/* General Styles */
+.table {
+    width: 100%;
+    margin: 20px 0;
+    border-collapse: collapse;
+    font-family: 'Arial', sans-serif;
+    font-size: 14px;
+}
+
+.table th, .table td {
+    padding: 12px;
+    text-align: center;
+    border: 1px solid #dee2e6;
+}
+
+.table th {
+    background-color: #007bff; /* Bootstrap primary color */
+    color: white;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+.table tbody tr:nth-child(even) {
+    background-color: #f9f9f9; /* Light gray for even rows */
+}
+
+.table tbody tr:hover {
+    background-color: #f1f1f1; /* Slightly darker gray on hover */
+}
+
+.table tbody td {
+    color: #333; /* Dark text for better readability */
+}
+
+.table tbody tr td:first-child {
+    text-align: left; /* Left-align product name */
+}
+
+.customerdetails {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin-top: -10px;
+    background-color: #f8f9fa;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.customerdetails p {
+    margin: 0;
+    font-weight: 500;
+}
+
+.table-details {
+    margin-top: 40px;
+}
+
+.order-table {
+    margin-top: 15px;
+}
+
+.overall {
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 10px;
+    padding: 15px 0;
+    margin-top: -10px;
+}
+
+.overall p {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+    border-top: 2px solid gray;
+    padding-top: 10px;
+}
+.overall {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-top: 20px;
+}
+
+.button-group {
+    display: flex;
+    gap: 10px;
+}
+
+.button-group {
+    display: flex; /* Enables flexbox layout */
+    gap: 10px; /* Adds space between buttons */
+}
+
+.all-btn {
+    display: flex; /* Enables flexbox for buttons */
+    align-items: center; /* Centers items vertically */
+    /* padding: 5px 5px; */
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    border: none;
+    transition: background-color 0.3s ease;
+    color: white; /* Text color */
+}
+
+.btn-complete {
+    background-color: #28a745;
+}
+
+.btn-complete:hover {
+    background-color: #218838;
+}
+
+.btn-Cancelled {
+    background-color: #dc3545;
+}
+
+.btn-Cancelled:hover {
+    background-color: #c82333;
+}
+
+.btn-Pending {
+    background-color: #ffc107; /* Background color for pending */
+}
+
+.btn-Pending:hover {
+    background-color: #e0a800; /* Darker shade for hover effect */
+}
+
+/* Optional: Style the icon spans */
+.all-btn span {
+    margin-right: 5px; /* Space between icon and text */
+    color: white; /* Color for icons */
+    font-size: 20px; /* Adjust icon size if needed */
+}
+
+
+.total-amount {
+    margin: 0;
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+}
+
+.item-index {
+    font-size: 20px;
+    font-weight: bold;
+    color: #007bff; /* Bootstrap primary blue color */
+    background-color: #f0f0f0; /* Light gray background */
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 15px;
+  
+  }
+  .status{
+    color: red;
+  }
+  .typcn--tick {
+    display: inline-block;
+    width: 2em;
+    height: 2em;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='white' d='M16.972 6.251a2 2 0 0 0-2.72.777l-3.713 6.682l-2.125-2.125a2 2 0 1 0-2.828 2.828l4 4c.378.379.888.587 1.414.587l.277-.02a2 2 0 0 0 1.471-1.009l5-9a2 2 0 0 0-.776-2.72'/%3E%3C/svg%3E");
+  }
+  .charm--cross {
+    display: inline-block;
+    width: 2em;
+    height: 2em;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='none' stroke='white' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m11.25 4.75l-6.5 6.5m0-6.5l6.5 6.5'/%3E%3C/svg%3E");
+  }
+  .carbon--warning {
+    display: inline-block;
+    width: 2em;
+    height: 2em;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath fill='white' d='M16 2a14 14 0 1 0 14 14A14 14 0 0 0 16 2m0 26a12 12 0 1 1 12-12a12 12 0 0 1-12 12'/%3E%3Cpath fill='white' d='M15 8h2v11h-2zm1 14a1.5 1.5 0 1 0 1.5 1.5A1.5 1.5 0 0 0 16 22'/%3E%3C/svg%3E");
+  }
+  .dateField{
+    display: flex;
+    justify-content: space-between;
+
+  }
+  .order-date{
+    margin-top:10px;
+    
+  }
+  
+/* Responsive Design */
+@media (max-width: 768px) {
+    .table th, .table td {
+        padding: 8px;
+        font-size: 12px;
+    }
+
+    .customerdetails {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .overall {
+        justify-content: center;
+    }
+}
