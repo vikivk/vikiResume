@@ -1,0 +1,59 @@
+<div class="container" id="container">
+  <!-- Sign-up form -->
+  <div class="form-container sign-up-container">
+    <form [formGroup]="adminregis" (ngSubmit)="onSignUp()">
+      <h1>Create Account</h1>
+      <div class="social-container">
+        <a href="#" class="social"><i class="bi bi-facebook">jdf</i></a>
+        <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+        <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
+      </div>
+      <span>or use your email for registration</span>
+      <input type="text" id="name" formControlName="name" placeholder="Name" />
+      <input type="email" id="email" formControlName="email" placeholder="Email" />
+      <input type="password" id="pass" formControlName="pass" placeholder="Password" />
+      <button type="submit">Sign Up</button>
+
+      <!-- Success and Error Messages -->
+      <div *ngIf="signupSuccessMessage" class="success">{{ signupSuccessMessage }}</div>
+      <div *ngIf="signupErrorMessage" class="error">{{ signupErrorMessage }}</div>
+    </form>
+  </div>
+
+  <!-- Sign-in form -->
+  <div class="form-container sign-in-container">
+    <form [formGroup]="loginCheck" (ngSubmit)="onSignIn()">
+      <h1>Sign in</h1>
+      <div class="social-container">
+        <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+        <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
+      </div>
+      <span>or use your account</span>
+      <input type="email" formControlName="email" placeholder="Email" required />
+      <input type="password" formControlName="password" placeholder="Password" required />
+      <a href="#">Forgot your password?</a>
+      <button type="submit">Sign In</button>
+
+      <!-- Success and Error Messages -->
+      <div *ngIf="loginSuccessMessage" class="success">{{ loginSuccessMessage }}</div>
+      <div *ngIf="loginErrorMessage" class="error">{{ loginErrorMessage }}</div>
+    </form>
+  </div>
+
+  <!-- Overlay container for toggling between forms -->
+  <div class="overlay-container">
+    <div class="overlay">
+      <div class="overlay-panel overlay-left">
+        <h1>Welcome Back!</h1>
+        <p>To keep connected with us please login with your personal info</p>
+        <button class="ghost" (click)="toggleSignIn()">Sign In</button>
+      </div>
+      <div class="overlay-panel overlay-right">
+        <h1>Hello, Friend!</h1>
+        <p>Enter your personal details and start the journey with us</p>
+        <button class="ghost" (click)="toggleSignUp()">Sign Up</button>
+      </div>
+    </div>
+  </div>
+</div>

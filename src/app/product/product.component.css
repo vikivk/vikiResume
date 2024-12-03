@@ -1,0 +1,84 @@
+.container-fluid {
+    height: 100px;
+}
+
+.box {
+    margin-top: 10px;
+
+    /* background-color: aqua; */
+    height: 500px;
+    z-index: 5;
+}
+
+.header-btn {
+    /* margin-top: 100px;
+    padding: 40px; */
+    display: flex;
+    justify-content: flex-end;
+
+}
+
+.btn-custom {
+    background-color: transparent;
+    border: 2px solid;
+    width: 180px;
+    height: 40px;
+    border-image: linear-gradient(45deg, red, #00f) 1;
+    color: #a81cff;
+    /* padding: 10px 20px; */
+    font-size: 16px;
+    font-weight: 500;
+
+}
+.header-modal button{
+    float: right;
+    padding: 10px;
+}
+.header-modal h5{
+    float: left;
+    padding: 7px;
+}
+.alert{
+ 
+  position: fixed;
+  bottom: 0px;
+  right: 0px;
+
+ font-weight: 600;
+ 
+}
+.fa {
+  margin-right:.5em;
+ }
+ .btn-modal{
+  display: flex;
+  justify-content: space-evenly;
+ }
+ 
+ /*
+.alert {
+  position: fixed;
+  bottom: 0px;
+  right: 0px;
+  z-index: 1050; 
+  transition: opacity 0.5s ease;
+  opacity: 0; 
+}
+
+.alert.show {
+  display: block; 
+  opacity: 1; 
+}
+
+.fa {
+  margin-right: 0.5em;
+} */
+
+@media (max-width: 768px) {
+    .table th, .table td {
+      font-size: 12px;
+      padding: 8px;
+    }
+  }
+
+  

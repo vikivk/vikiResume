@@ -1,0 +1,167 @@
+<div class="container-fluid cont">
+    <div class="box">
+        <div class="box-header">
+            <div class="header-btn">
+                <!-- Button to trigger Add Product Modal -->
+                <!-- Button to trigger Add Product Modal -->
+                <button type="button" class="btn btn-primary btn-custom" data-bs-toggle="modal"
+                    data-bs-target="#addProductModal" (click)="resetForm()">
+                    Add Product Type
+                </button>
+
+            </div>
+
+            <!-- Add  Product Type Modal -->
+            <div class="modal fade" id="addProductModal" tabindex="-1" aria-labelledby="addProductLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 id="addProductLabel">Add Product Type</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form [formGroup]="addproductType" (ngSubmit)="onSubmit(false)">
+                                <div class="row form-container">
+
+                                    <div class="col-lg-12 form-group">
+                                        <label for="productType">Product Type</label>
+                                        <input type="text" id="productType" formControlName="productType"
+                                            class="form-control">
+                                    </div>
+                                    <div class="col-lg-12 form-group">
+                                        <label for="location">Location</label>
+                                        <input type="text" id="location" formControlName="location"
+                                            class="form-control">
+                                    </div>
+                                    <div class="col-lg-12 form-group">
+                                        <label for="pack">Pack</label>
+                                        <input type="text" id="pack" formControlName="pack" class="form-control">
+                                    </div>
+                                    <div class="col-lg-12 form-group">
+                                        <label for="supplier">Supplier</label>
+                                        <input type="text" id="supplier" formControlName="supplier"
+                                            class="form-control">
+                                    </div>
+                                    <div class="col-lg-12 form-group">
+                                        <label for="discount">Discount</label>
+                                        <input type="text" id="discount" formControlName="discount"
+                                            class="form-control">
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-primary">Save changes</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End of Add Product Modal -->
+
+            <!-- Edit Product type Modal -->
+             <div class="modal fade" id="editProductModal" tabindex="-1" aria-labelledby="editProductLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 id="editProductLabel">Edit Product Type</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form [formGroup]="addproductType" (ngSubmit)="onSubmit(true)">
+                                <div class="row form-container">
+                                    <div class="col-lg-12 form-group">
+                                        <label for="productType">Product Type</label>
+                                        <input type="text" id="productType" formControlName="productType"
+                                            class="form-control">
+                                    </div>
+                                    <div class="col-lg-12 form-group">
+                                        <label for="discount">Discount</label>
+                                        <input type="text" id="discount" formControlName="discount" class="form-control">
+                                      </div>
+                                    <div class="col-lg-12 form-group">
+                                        <label for="location">Location</label>
+                                        <input type="text" id="location" formControlName="location"
+                                            class="form-control">
+                                    </div>
+                                    <div class="col-lg-12 form-group">
+                                        <label for="pack">Pack</label>
+                                        <input type="text" id="pack" formControlName="pack" class="form-control">
+                                    </div>
+                                    <div class="col-lg-12 form-group">
+                                        <label for="supplier">Supplier</label>
+                                        <input type="text" id="supplier" formControlName="supplier"
+                                            class="form-control">
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-primary">Update</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div> 
+            <!-- End of Edit Product Modal -->
+
+            <!-- Display Product Table -->
+
+            <div class="display mt-2">
+                <div class="container">
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                  
+                                    <th>Product Type</th>
+                                    <th>Location</th>
+                                    <th>Pack</th>
+                                    <th>Supplier</th>
+                                    <th>Discount</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let product of products; let i = index">
+                                    <td>{{ product.typeId }}</td>
+                                    <td>{{ product.productType }}</td>
+                                    <td>{{ product.location }}</td>
+                                    <td>{{ product.pack }}</td>
+                                    <td>{{ product.supplier }}</td>
+                                    <td>{{product.discount}}</td>
+                                    <!-- <td>
+                                        <img [src]="getImageSrc(product.image)" alt="{{ product.productName }}"
+                                            width="50" height="50">
+
+                                    </td> -->
+                                    <td>
+                                        <div class="btn-modal">
+                                            <button class="btn btn-primary" (click)="editProduct(product)"
+                                                data-bs-toggle="modal" data-bs-target="#editProductModal">Edit</button>
+                                            <button type="button" class="btn btn-danger sendButton"
+                                                (click)="deleteModal(product.typeId)">Delete</button>
+                                        </div> 
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- End of Product Table -->
+
+            <!-- Alert for Successful Deletion -->
+            <div class="alert alert-danger alert-dismissible fade show" role="alert" *ngIf="isAlertVisible">
+                <!-- <button type="button" class="close" aria-label="Close" (click)="closeAlert()"> 
+            <span aria-hidden="true">&times;</span>
+          </button>-->
+                <p>Product deleted successfully!</p>
+            </div>
+
+        </div>
+    </div>
+</div>

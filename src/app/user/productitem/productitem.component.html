@@ -1,0 +1,319 @@
+<div class="first-header">
+    <div class="row header">
+        <div class="col-lg-3">Orders - +1234567890</div>
+        <div class="col-lg-5">Welcome to PG Analytics Crackers, Virudhunagar</div>
+        <div class="col-lg-3 mail">Mail Us: abcdef&#64;gmail.com</div>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="row box">
+        <div class="col-lg-4">
+            <div class="rounded-2 px-3 m-3 mx-5 bg-success border border-4 border-warning text-white fs-5">
+                <p>Crackers Available All 365 Days!<br> Diwali Sales Started. Celebrate <br> Diwali with Awesome
+                    Crackers</p>
+            </div>
+        </div>
+        <div class="col-lg-4 box2">
+            <div class="row d-flex align-items-center innerbox">
+                <div class="col-lg-3 col-md-4 col-sm-3 innerbox1">
+                    <img class="image-fluid" src="../../../assets/image/homesmall.jpg" alt="Small Image" width="100">
+                </div>
+                <div class="col-6 col-md-4 col-sm-3">
+                    <img class="image-fluid boximage2" src="../../../assets/image/images.png" alt="Main Image"
+                        width="160">
+                </div>
+                <div class="col-lg-3 col-md-4 col-sm-3 innerbox2">
+                    <img class="image-fluid" src="../../../assets/image/homesmall.jpg" alt="Small Image" width="100">
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 d-flex justify-content-center mt-4">
+            <div>
+                <h5 class="text-danger fw-bold">FOR QUERIES & BULK ORDER</h5>
+                <h6 class="d-flex justify-content-center fw-bold">+91 1234567890</h6>
+                <h6 class="d-flex justify-content-center fw-bold">+91 9876543210</h6>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Hamburger Button -->
+<button class="hamburger mt-2" aria-label="Toggle navigation" (click)="toggleNav()">
+    <span class="hamburger-icon"></span>
+</button>
+<nav class="navbar" [class.show]="isNavVisible">
+    <ul>
+        <li class="nav-options"><a [routerLink]="['/']">Home</a></li>
+        <li class="nav-options"><a [routerLink]="['/About']">About</a></li>
+        <li class="nav-options"><a [routerLink]="['/Productitem']">Product</a></li>
+        <li class="nav-options"><a [routerLink]="['/Safety']">Safety Tips</a></li>
+        <li class="nav-options">Contact Us</li>
+    </ul>
+</nav>
+
+<div class="sale-details">
+    <p class="sale-detail1">Total Products: {{ productCount || 0 }}</p>
+    <p class="sale-detail2">Discount Total: ₹.0</p>
+    <p class="sale-detail3">Overall Total: ₹ {{ overallTotal || 0 }}</p>
+
+</div>
+
+<div *ngFor="let productType of productGroups | keyvalue">
+    <div class="sale-products">
+        <div class="col-lg-12">
+            <h2 class="product-header">
+                {{ productType.key }}
+                <span *ngIf="productType.value[0]?.discount">
+                    (Discount: {{ productType.value[0].discount }}%)
+                </span>
+            </h2>
+        </div>
+    </div>
+
+    <div class="display-product">
+        <div class="container">
+            <div class="row pro-row">
+                <div *ngFor="let product of productType.value" class="col-12 col-md-5 col-lg-5 pro-card mt-2">
+                    <div class="product-img">
+                        <img [src]="getImageSrc(product.image)" alt="{{ product.productName }}" width="50" height="50">
+                    </div>
+                    <span class="proId">{{ product.productId }}</span>
+                    <div class="product-text">
+                        <div class="product-title">{{ product.productName }}</div>
+                        <div class="pro-price">
+                            <div class="price">
+                                <p class="prv-price">₹ {{ product.price }} / {{ product.pack }} </p>
+                                <p class="act-price">₹ {{ calculateDiscountedPrice(product) }}</p>
+                            </div>
+                            <div class="qty">
+                                <form *ngIf="product.stock > 0" [formGroup]="qtyForm[product.productId]">
+                                  <input type="number" class="qty-in" placeholder="qty" min="1" formControlName="qty">
+                                </form>
+                                <span *ngIf="product.stock <= 0" class="out-of-stock">Out of Stock</span>
+                              </div>
+                              
+                            <div class="addto" *ngIf="showAddToCart[product.productId]" (click)="openModal(product)">
+                                <span class="raphael--cart"></span>
+                                <span>
+                                    <p class="cart-count">{{ productCount || 0 }}</p>
+                                </span>
+                            </div>
+                            <span class="tot_price">₹ {{ totalAmounts[product.productId] || 0 }}</span>
+                        </div>
+                    </div>
+
+                    <div class="modal-right" [ngClass]="{'modal-open': isModalOpen}" *ngIf="isModalOpen">
+                        <div class="modal-content" (click)="$event.stopPropagation()">
+                            <div class="modal-header">
+                                <h5>PG Analytics</h5>
+                                <span class="close" (click)="closeModal()">&times;</span>
+                            </div>
+
+                            <div class="modal-body">
+                                <form [formGroup]="cartForm" (ngSubmit)="submitOrder()">
+                                    <!-- <form [formGroup]="orderForm" (ngSubmit)="submitOrder()"> -->
+                                    <ng-container *ngIf="!showLogoSection">
+                                        <!-- First Section (Estimate Section) -->
+                                        <div class="estimate_details">
+                                            <div class="order-list">
+                                                <!-- Your Product Display and Estimate -->
+                                                <div *ngFor="let product of AddToCart; let i = index">
+                                                    <div class="container">
+                                                        <div class="row">
+                                                            <!-- Product Image -->
+                                                            <div class="col-lg-3">
+                                                                <div class="estiImage">
+                                                                    <img [src]="getImageSrc(product.image)"
+                                                                        alt="{{ product.productName }}" width="60"
+                                                                        height="60">
+                                                                </div>
+                                                            </div>
+                                                            <!-- Product Name and Quantity -->
+                                                            <div class="col-lg-6">
+                                                                <!-- <p>{{product.productId}}</p> -->
+
+                                                                <!-- Product Name (Read-Only) -->
+                                                                <!-- Product ID (hidden input) -->
+                                                                <!-- <input type="text" [(ngModel)]="product.productId"
+                                                                    name="productId{{i}}" hidden> -->
+                                                                <!-- <input type="text" formControlName="productId" > -->
+                                                                <!-- <input type="text" class="order-name" formControlName="productId" [value]="product.productId" hidden> -->
+                                                                <!-- <div class="order-name">{{product.productId}}</div> -->
+                                                                <!-- Product Name (Read-Only) -->
+                                                                <!-- <input type="text" class="order-name"
+                                                                    [(ngModel)]="product.productName"
+                                                                    name="productName{{i}}" readonly> -->
+                                                                <!-- <input type="text" class="order-name" formControlName="productName" readonly> -->
+                                                                <!-- <input type="text" class="order-name" formControlName="productName" [value]="product.productName" readonly> -->
+                                                                <div class="order-name">{{product.productName}}</div>
+                                                                <div class="cross">
+                                                                    <div class="order-qty">{{product.qty}}</div><span> X
+                                                                    </span>
+                                                                    <!-- <input type="text" class="order-qty"
+                                                                        [value]="product.qty" formControlName="qty"><span> X </span> -->
+                                                                    <div class="order-qty">{{ estimatePrice(product) }}
+                                                                    </div>
+
+                                                                    <!-- <input type="text" class="order-qty"
+                                                                        [value]="estimatePrice(product)" 
+                                                                         
+                                                                        readonly> -->
+                                                                    <!-- <input type="text" class="order-qty" [value]="product.discountedPrice" readonly> -->
+                                                                    <!-- <input type="text" class="order-qty" formControlName="discountedPrice" readonly> -->
+                                                                </div>
+
+
+                                                            </div>
+                                                            <!-- Discount and Final Price -->
+                                                            <div class="col-lg-3">
+                                                                <span class="cur">₹ <input type="text"
+                                                                        class="estimateTotal"
+                                                                        [value]="estimateTotal(product)"
+                                                                        readonly></span>
+                                                            </div>
+                                                        </div>
+                                                        <hr>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="estimate">
+                                            <div class="container">
+                                                <div class="estimate-amount">
+                                                    <div class="ed">
+                                                        <p class="sale-detail1">Total Products</p>
+                                                        <p class="sale-detail2">Discount Total</p>
+                                                        <p class="sale-detail3">Overall Total</p>
+                                                    </div>
+                                                    <div class="ea">
+                                                        <p>₹ {{ productCount || 0 }}</p>
+                                                        <p>₹ 0</p>
+                                                        <p>₹ {{ overallTotal || 0 }}</p>
+                                                    </div>
+                                                </div>
+                                                <!-- Confirm Button -->
+                                                <div class="estimate-btn" (click)="showLogoSection = true">
+                                                    <span>Confirm Estimate</span>
+                                                </div>
+                                                <p class="order">Min.Order Amount</p>
+                                                <div class="state-order">
+                                                    <div class="state">
+                                                        <p>Tamil Nadu</p>
+                                                        <p>Pondicherry</p>
+                                                        <p>Andhra Pradesh</p>
+                                                        <p>Telangana</p>
+                                                        <p>Karnataka</p>
+                                                    </div>
+                                                    <div class="state-price">
+                                                        <p>Rs.4000</p>
+                                                        <p>Rs.4000</p>
+                                                        <p>Rs.5000</p>
+                                                        <p>Rs.5000</p>
+                                                        <p>Rs.5000</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </ng-container>
+
+                                    <ng-container *ngIf="showLogoSection">
+                                        <!-- Second Section (Logo Section) -->
+                                        <div class="logo-section">
+                                            <div class="estimate_details2">
+                                                <div class="container">
+                                                    <div class="form-group">
+                                                        <label for="inputState">State (<span
+                                                                class="require">*</span>)</label>
+                                                        <select class="form-control" id="inputState"
+                                                            formControlName="state" (change)="onStateChange($event)">
+                                                            <option value="SelectState">Select State</option>
+                                                            <option *ngFor="let state of states" [value]="state.name">{{
+                                                                state.name }}</option>
+                                                        </select>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label for="inputDistrict">District</label>
+                                                        <select class="form-control" id="inputDistrict"
+                                                            formControlName="district"
+                                                            [disabled]="districts.length === 0">
+                                                            <option value="">-- select one --</option>
+                                                            <option *ngFor="let district of districts"
+                                                                [value]="district">{{ district }}</option>
+                                                        </select>
+                                                    </div>
+
+
+                                                    <div class="form-group">
+                                                        <label for="name">Name(<span class="require">*</span>)</label>
+                                                        <input type="text" class="form-control" formControlName="name">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="email">Email(<span class="require">*</span>)</label>
+                                                        <input type="email" class="form-control"
+                                                            formControlName="email">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="mobile">Mobile Number (<span
+                                                                class="require">*</span>)</label>
+                                                        <input type="text" class="form-control"
+                                                            formControlName="mobile">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="address">Address (<span
+                                                                class="require">*</span>)</label>
+                                                        <input type="text" class="form-control"
+                                                            formControlName="address">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="estimate2">
+                                                <div class="container">
+                                                    <div class="estimate-amount2">
+                                                        <div class="ed">
+                                                            <p class="sale-detail1">Total Products</p>
+                                                            <p class="min-order">Min.Order Amount</p>
+                                                            <p class="sale-detail2">Discount Total</p>
+                                                            <p class="sale-detail3">Overall Amount</p>
+                                                        </div>
+                                                        <div class="oa">
+                                                            <p>₹ {{ productCount || 0 }}</p>
+                                                            <p class="min-order" *ngIf="selectedValue">₹ {{
+                                                                selectedValue }}</p>
+                                                            <p>0</p>
+                                                            <p>₹ {{ overallTotal || 0 }}</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="back-btn-container">
+                                                        <button type="submit" class="order-submit">Submit</button>
+                                                        <button class="back-btn"
+                                                            (click)="goBackToEstimate()">Back</button>
+                                                    </div>
+                                                    <p class="note">*Note : please Recheck you information</p>
+                                                </div>
+
+
+
+                                            </div>
+                                        </div>
+                                    </ng-container>
+                                </form>
+
+
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+        <div class="alert alert-success alert-dismissible fade show" role="alert" *ngIf="isAlertVisible">
+            <p>Order Placed Successfully!</p>
+        </div>
+        
+    </div>
+</div>

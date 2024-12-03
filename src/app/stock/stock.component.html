@@ -1,0 +1,35 @@
+<div class="container-fluid">
+    <h2 id="addProductLabel">Stock Details</h2>
+    <div class="display mt-2">
+        <div class="container">
+          <div class="table-responsive">
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Product Name</th>
+                  <th>Product Type</th>
+                  <th>Stock</th>
+                  
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let product of stocks; let i = index">
+                  <td>{{ product.productId }}</td>
+                  <td>{{ product.productName }}</td>
+                  <td>{{ product.productType }}</td>
+                  <td [ngClass]="{ 'out-of-stock': product.stock <= 0 }">
+                    {{ product.stock > 0 ? product.stock : 'Out of Stock' }}
+                  </td>
+                  
+                 
+                  
+                  
+                 
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+</div>
