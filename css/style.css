@@ -33,6 +33,11 @@ body::-webkit-scrollbar {
     transition: 0.5s;
     z-index: 99;
 }
+.year {
+    font-style: italic;
+    color: gray;
+    font-size: 0.9em;
+}
 
 
 /*** Button Start ***/
