@@ -517,7 +517,11 @@ body::-webkit-scrollbar {
     padding: 0 60px 60px 60px;
     transition: 0.5s;
 }
-
+.Certificate{
+    color: blue;
+    text-decoration: none !important;
+    cursor: pointer;
+}
 @media (max-width: 576px) {
     .testimonial-carousel .owl-dots {
         justify-content: start;
